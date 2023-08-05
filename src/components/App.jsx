@@ -12,6 +12,7 @@ function App() {
   const [friendData, setFriendData] = useState(Data);
   const [showaddfriend, setShowAddFriend] = useState(false);
   const [selectedFriend, setSelectedFriend] = useState("");
+  const [id, setId] = useState(0);
 
   const [bill, setBill] = useState();
   const [expense, setExpense] = useState();
@@ -32,23 +33,25 @@ function App() {
     setExpense,
     whopays,
     setWhoPays,
+    id,
+    setId,
   };
 
   return (
     <>
       <Header />
 
-      <div className=" item  mt-[5rem] flex-col items-start  justify-center gap-6 font-poppins text-black sm:flex md:flex-row ">
+      <div className="   mt-[5rem] flex-col items-start  justify-center gap-6 font-poppins text-black sm:flex md:flex-row ">
         <MainContext.Provider value={provideData}>
-          <div className=" flex flex-col gap-3">
+          <div className=" flex flex-col gap-6 p-4 sm:gap-3 sm:p-0">
             <Friends />
 
             {!showaddfriend && (
               <button
-                className="rounded-2xl bg-slate-300 p-3"
+                className=" rounded-2xl bg-slate-300 p-4 hover:bg-black hover:text-white"
                 onClick={() => setShowAddFriend(!showaddfriend)}
               >
-                Add new friend
+                <p>Add a new friend</p>
               </button>
             )}
 

@@ -5,10 +5,9 @@ import { MainContext } from "./Context";
 function NewFriends() {
   const [name, setName] = useState("");
   const [balance, setBalance] = useState(0);
-  const [id, setId] = useState(0);
-  const [img, setImg] = useState(`https://i.pravatar.cc/48?img=${id}`);
+  const [img, setImg] = useState(`https://i.pravatar.cc/48?img=`);
 
-  const { friendData, setFriendData, setShowAddFriend } =
+  const { friendData, setFriendData, setShowAddFriend, id, setId } =
     useContext(MainContext);
 
   useEffect(() => {
@@ -17,20 +16,14 @@ function NewFriends() {
 
   const handleNewFriend = (e) => {
     e.preventDefault();
-
-    setId((id) => id + 1);
     if (!name) return;
 
     if (friendData.some((item) => item.name === name)) return;
 
     const newData = [...friendData, { name: name, img: img, balance: balance }];
-
+    setId((cur) => cur + 1);
     setFriendData(newData);
     setName("");
-    setShowAddFriend(false);
-  };
-
-  const handleClose = () => {
     setShowAddFriend(false);
   };
 
@@ -59,7 +52,6 @@ function NewFriends() {
           placeholder="https://i.pravatar.cc/48?img=38"
           value={`https://i.pravatar.cc/48?img=${id}`}
           onChange={(e) => {
-            console.log(img);
             setImg(value);
           }}
         />
@@ -71,7 +63,7 @@ function NewFriends() {
         </button>
 
         <button
-          onClick={handleClose}
+          onClick={() => setShowAddFriend(false)}
           className=" w-32 rounded-2xl bg-black p-3 font-bold text-white hover:bg-white hover:text-black"
         >
           Close

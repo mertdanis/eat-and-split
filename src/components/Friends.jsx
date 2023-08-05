@@ -35,14 +35,9 @@ function Friends() {
     handleTotal();
   }, [friendData]);
 
-  let key = self.crypto.randomUUID();
-
   return (
     <div className="h-[27rem]  overflow-auto">
-      <div
-        className=" flex flex-col gap-4 rounded-2xl bg-slate-300	 p-6"
-        key={key}
-      >
+      <div className=" flex flex-col gap-4 rounded-2xl bg-slate-300	 p-6">
         <p className="block text-center text-2xl font-bold">Friends</p>
         {friendData.map((friend) => {
           return (
@@ -62,7 +57,7 @@ function Friends() {
               totalBalance > 0 ? "text-green-500" : "text-red-500"
             }`}
           >
-            ${totalBalance}
+            &nbsp;${totalBalance}
           </span>
         </p>
       </div>

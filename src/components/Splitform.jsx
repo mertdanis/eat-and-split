@@ -38,12 +38,12 @@ function Splitform() {
   };
 
   return (
-    <div className="  mt-6 flex  	 rounded-2xl  bg-slate-300 p-6 text-xl sm:mt-0 ">
-      <div className=" flex flex-col justify-start  gap-3  pt-6">
-        <h2 className="mb-5 text-center font-bold uppercase tracking-widest">
+    <div className=" m-4 flex rounded-2xl bg-slate-300  p-6  text-xl sm:m-0	 sm:mt-0 sm:p-0 ">
+      <div className=" flex flex-col justify-start  gap-3 p-6  sm:gap-4">
+        <h2 className="mb-5 mt-2 text-center font-bold uppercase tracking-widest">
           Split a bill with {selectedFriend.name}
         </h2>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between ">
           <div className="space-x-3">
             <i class="fa-solid fa-money-bill"></i>
             <label htmlFor="bill">Bill Value</label>
@@ -53,7 +53,7 @@ function Splitform() {
             id="bill"
             min={0}
             value={!bill ? "" : bill}
-            className="w-28	rounded-2xl p-1 text-center"
+            className="w-28 rounded-2xl p-1 text-center	[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             onChange={(e) => setBill(Number(e.target.value))}
           />
         </div>
@@ -70,7 +70,7 @@ function Splitform() {
             id="yourExpense"
             min={0}
             value={expense <= bill ? expense : setExpense(0)}
-            className="w-28 rounded-2xl p-1 text-center"
+            className="w-28 rounded-2xl p-1 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             onChange={(e) => setExpense(Number(e.target.value))}
           />
         </div>

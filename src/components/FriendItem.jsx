@@ -54,7 +54,6 @@ function FriendItem({
         <button
           className="ml-auto  rounded-xl bg-black  p-2  font-semibold text-white hover:bg-white hover:text-black"
           onClick={() => {
-            console.log(friend);
             {
               selectedFriend.name == friend.name
                 ? setSelectedFriend("")
