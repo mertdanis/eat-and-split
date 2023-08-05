@@ -12,18 +12,22 @@ function Splitform() {
     setExpense,
     whopays,
     setWhoPays,
+    setSelectedFriend,
+    showaddfriend,
   } = useContext(MainContext);
 
   const friendExpense = bill - expense;
-  const myExpense = expense - bill;
 
   const handleBalance = () => {
     const updateBalance = friendData.map((friend) => {
       if (friend.name === selectedFriend.name) {
         if (whopays === "friend") {
-          return { ...friend, balance: friend.balance + friendExpense };
+          return {
+            ...friend,
+            balance: friend.balance - expense,
+          };
         } else if (whopays === "you") {
-          return { ...friend, balance: friend.balance + myExpense };
+          return { ...friend, balance: friend.balance + friendExpense };
         }
       }
 
@@ -34,70 +38,92 @@ function Splitform() {
   };
 
   return (
-    <div className=" rounded-2xl bg-orange-500 p-6">
-      <div className=" flex  flex-col gap-3 p-6">
-        <h2 className="font-bold uppercase">
+    <div className="  mt-6 flex  	 rounded-2xl  bg-slate-300 p-6 text-xl sm:mt-0 ">
+      <div className=" flex flex-col justify-start  gap-3  pt-6">
+        <h2 className="mb-5 text-center font-bold uppercase tracking-widest">
           Split a bill with {selectedFriend.name}
         </h2>
-        <div className="flex justify-between">
-          <i class="fa-solid fa-money-bill"></i>
-
-          <label htmlFor="bill">Bill Value</label>
+        <div className="flex items-center justify-between">
+          <div className="space-x-3">
+            <i class="fa-solid fa-money-bill"></i>
+            <label htmlFor="bill">Bill Value</label>
+          </div>
           <input
             type="number"
             id="bill"
-            value={bill}
-            className="w-28	"
+            min={0}
+            value={!bill ? "" : bill}
+            className="w-28	rounded-2xl p-1 text-center"
             onChange={(e) => setBill(Number(e.target.value))}
           />
         </div>
 
-        <div className="flex justify-between">
-          <i class="fa-solid fa-wallet"></i>
-          <label className="font-bold" htmlFor="yourExpense">
-            Your Expense
-          </label>
+        <div className="flex items-center justify-between">
+          <div className="space-x-3">
+            <i class="fa-solid fa-wallet"></i>
+            <label className="font-bold" htmlFor="yourExpense">
+              Your Expense
+            </label>
+          </div>
           <input
             type="number"
             id="yourExpense"
-            value={expense}
-            className="w-28"
+            min={0}
+            value={expense <= bill ? expense : setExpense(0)}
+            className="w-28 rounded-2xl p-1 text-center"
             onChange={(e) => setExpense(Number(e.target.value))}
           />
         </div>
 
-        <div className="flex justify-between">
-          <i class="fa-solid fa-hand-holding-dollar"></i>
+        <div className="flex items-center justify-between">
+          <div className="space-x-3">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
 
-          <label>{selectedFriend.name}'s Expense</label>
+            <label>{selectedFriend.name}'s Expense</label>
+          </div>
           <input
             disabled
             type="text"
             id="friendExpense"
-            className="w-28 "
-            value={friendExpense}
+            className="w-28 rounded-2xl p-1 text-center"
+            value={bill && expense ? friendExpense : ""}
           />
         </div>
 
-        <div className="flex justify-between">
-          <i class="fa-solid fa-people-arrows"></i>
-          <label htmlFor="paidByWho">Who is paying the bill?</label>
-          <select
-            value={whopays}
-            className="w-28"
-            id="paidByWho"
-            onChange={(e) => setWhoPays(e.target.value)}
-          >
-            <option value="you">You</option>
-            <option value="friend">{selectedFriend.name}</option>
-          </select>
+        <div className="mb-6 flex items-center justify-between gap-6">
+          <div className="space-x-3">
+            <i class="fa-solid fa-people-arrows"></i>
+            <label htmlFor="paidByWho">Who is paying the bill?</label>
+          </div>
+
+          <div>
+            <select
+              value={whopays}
+              className="w-28 rounded-2xl p-1 text-center"
+              id="paidByWho"
+              onChange={(e) => setWhoPays(e.target.value)}
+            >
+              <option value="you">You</option>
+              <option value="friend">{selectedFriend.name}</option>
+            </select>
+          </div>
         </div>
-        <button
-          onClick={handleBalance}
-          className=" mt-5 w-28 rounded-2xl bg-red-500 p-3 font-bold	"
-        >
-          Split Bill
-        </button>
+
+        <div className="mt-auto flex justify-between">
+          <button
+            onClick={handleBalance}
+            className=" w-28 rounded-2xl bg-black  p-3 font-bold	text-white transition hover:bg-white hover:text-black"
+          >
+            Split Bill
+          </button>
+
+          <button
+            onClick={() => setSelectedFriend(false)}
+            className="mt-auto w-28 rounded-2xl bg-black  p-3 font-bold	text-white transition hover:bg-white hover:text-black"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );

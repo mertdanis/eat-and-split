@@ -3,7 +3,7 @@ import "../index.css";
 import Friends from "./Friends";
 import NewFriends from "./NewFriends";
 import Splitform from "./Splitform";
-
+import Header from "./Header";
 import Data from "../data/Data";
 
 import { MainContext } from "./Context";
@@ -13,8 +13,8 @@ function App() {
   const [showaddfriend, setShowAddFriend] = useState(false);
   const [selectedFriend, setSelectedFriend] = useState("");
 
-  const [bill, setBill] = useState(0);
-  const [expense, setExpense] = useState(0);
+  const [bill, setBill] = useState();
+  const [expense, setExpense] = useState();
   const [whopays, setWhoPays] = useState("you");
 
   const provideData = {
@@ -25,6 +25,7 @@ function App() {
     friendData,
     setFriendData,
     setShowAddFriend,
+    showaddfriend,
     bill,
     setBill,
     expense,
@@ -34,25 +35,30 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center gap-6 bg-orange-50 text-black">
-      <MainContext.Provider value={provideData}>
-        <div className="flex flex-col gap-6">
-          <Friends />
+    <>
+      <Header />
 
-          {!showaddfriend && (
-            <button
-              className="bg-orange-500 p-3"
-              onClick={() => setShowAddFriend(!showaddfriend)}
-            >
-              Add new friend
-            </button>
-          )}
+      <div className=" item  mt-[5rem] flex-col items-start  justify-center gap-6 font-poppins text-black sm:flex md:flex-row ">
+        <MainContext.Provider value={provideData}>
+          <div className=" flex flex-col gap-3">
+            <Friends />
 
-          {showaddfriend && <NewFriends />}
-        </div>
-        {selectedFriend && <Splitform />}
-      </MainContext.Provider>
-    </div>
+            {!showaddfriend && (
+              <button
+                className="rounded-2xl bg-slate-300 p-3"
+                onClick={() => setShowAddFriend(!showaddfriend)}
+              >
+                Add new friend
+              </button>
+            )}
+
+            {showaddfriend && <NewFriends />}
+          </div>
+
+          {selectedFriend && <Splitform />}
+        </MainContext.Provider>
+      </div>
+    </>
   );
 }
 

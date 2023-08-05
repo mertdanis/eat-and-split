@@ -7,46 +7,64 @@ function FriendItem({
   setShowAddFriend,
 }) {
   return (
-    <div className="  flex items-center gap-3 	p-6	 text-white ">
-      <img
-        className="rounded-3xl	"
-        src={`${friend.img}`}
-        alt={`${friend.name}`}
-      />
-      <div>
-        <p className="text-xl font-semibold">{friend.name}</p>
-
-        {friend.balance > 0 ? (
-          <p className="bg-green-500">
-            {friend.name} owes you ${friend.balance}
-          </p>
-        ) : (
-          ""
-        )}
-
-        {friend.balance < 0 ? (
-          <p className="bg-red-500">
-            You owe {friend.name} {friend.balance}$
-          </p>
-        ) : (
-          ""
-        )}
-
-        {friend.balance == 0 ? <p>You and {friend.name} are even</p> : ""}
-      </div>
-      <button
-        className="ml-5  rounded-xl bg-white p-2 font-semibold text-red-600"
-        onClick={() => {
-          setShowAddFriend(false);
-          {
-            selectedFriend.name == friend.name
-              ? setSelectedFriend("")
-              : setSelectedFriend(friend);
-          }
-        }}
+    <div className="gap-3 text-black">
+      <div
+        className={`flex items-center gap-5 rounded-2xl p-2 ${
+          selectedFriend.name == friend.name
+            ? "bg-slate-200 text-black"
+            : "bg-white-500"
+        }`}
       >
-        Select
-      </button>
+        <img
+          className="h-12 w-12 rounded-3xl	 object-cover"
+          src={`${friend.img}`}
+          alt={`${friend.name}`}
+        />
+
+        <div>
+          <p className="text-xl font-semibold capitalize">{friend.name}</p>
+
+          <div className="mt-1">
+            {friend.balance > 0 ? (
+              <p className="text-green-600	">
+                {friend.name} owes you ${friend.balance}
+              </p>
+            ) : (
+              ""
+            )}
+
+            {friend.balance < 0 ? (
+              <p className="text-red-500">
+                You owe {friend.name} {friend.balance}$
+              </p>
+            ) : (
+              ""
+            )}
+
+            {friend.balance == 0 ? (
+              <p>
+                You and <span className="capitalize">{friend.name}</span> are
+                even
+              </p>
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
+        <button
+          className="ml-auto  rounded-xl bg-black  p-2  font-semibold text-white hover:bg-white hover:text-black"
+          onClick={() => {
+            console.log(friend);
+            {
+              selectedFriend.name == friend.name
+                ? setSelectedFriend("")
+                : setSelectedFriend(friend);
+            }
+          }}
+        >
+          {friend.name === selectedFriend.name ? "Close" : "Select"}
+        </button>
+      </div>
     </div>
   );
 }
